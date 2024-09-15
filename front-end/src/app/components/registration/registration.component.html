@@ -1,0 +1,54 @@
+<div class="body">
+  <div class="wrapper">
+    <h2>Registration</h2>
+    <form [formGroup]="emailForm" (ngSubmit)="onSubmit()">
+      <div class="input-box">
+        <label>Enter your username</label>
+        <input formControlName="username" type="text">
+      </div>
+      <div class="input-box">
+        <label>Enter your password</label>
+        <input formControlName="password" type="password">
+      </div>
+      <div class="input-box">
+        <label>Enter your name</label>
+        <input formControlName="ime" type="text">
+      </div>
+      <div class="input-box">
+        <label>Enter your lastname</label>
+        <input formControlName="prezime" type="text">
+      </div>
+      <div class="input-box">
+        <label for="email">Enter your email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="emailAddress"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="emailForm.get('emailAddress')?.invalid && emailForm.get('emailAddress')?.touched">
+          <small *ngIf="emailForm.get('emailAddress')?.hasError('required')">Email is required</small>
+          <small *ngIf="emailForm.get('emailAddress')?.hasError('emailAddress')">Invalid email format</small>
+        </div>
+      </div>
+      <div class="input-box">
+        <label>Enter your country</label><br>
+        <select formControlName="drzavaID">
+          <option *ngFor="let d of drzave" [value]="d.id">{{d.naziv}}</option>
+        </select>
+      </div>
+      <div class="input-box">
+        <label>Type of account</label><br>
+        <mat-radio-group formControlName="accountType">
+          <mat-radio-button value="freelancer">Freelancer</mat-radio-button>
+          <mat-radio-button value="employer">Employer</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="input-box button">
+        <button type="submit" [disabled]="emailForm.invalid">Register Now</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-registration-verification [newUserAccountID]="newUserAccountID"></app-registration-verification>
